@@ -1,72 +1,41 @@
 import { createStackNavigator } from "@react-navigation/stack";
-import Icon from "react-native-vector-icons/Ionicons";
 import React from "react";
-import { View, Button, Text } from "react-native";
 import { createMaterialBottomTabNavigator } from "@react-navigation/material-bottom-tabs";
+import { createDrawerNavigator } from "@react-navigation/drawer";
 import MaterialCommunityIcons from "react-native-vector-icons/MaterialCommunityIcons";
-const Tab = createMaterialBottomTabNavigator();
-const HomeStack = createStackNavigator();
-const ProfileStack = createStackNavigator();
-const HomeStackScreen = ({ navigation }) => {
-  return (
-    <HomeStack.Navigator>
-      <HomeStack.Screen
-        name="Home"
-        component={NotificationsScreen}
-        options={{
-          title: "overview",
-          headerLeft: () => {
-            return (
-              <Icon.Button
-                name="ios-menu"
-                size={25}
-                backgroundColor="#009387"
-                onPress={() => {
-                  navigation.openDrawer();
-                }}
-              />
-            );
-          },
-        }}
-      />
-    </HomeStack.Navigator>
-  );
-};
 
-const ProfileStackScreen = ({ navigation }) => {
-  return (
-    <ProfileStack.Navigator>
-      <ProfileStack.Screen
-        name="Home"
-        component={NotificationsScreen}
+import AuthStackScreen from "./components/AuthStack";
+import HomeStackScreen from "./components/Homesttack";
+import ProfileStackScreen from "./components/Profilestack";
+import { DrawerContent } from "./components/drawercontent";
+
+//declaretion of tab,homestack,profilestack,drawer
+const Tab = createMaterialBottomTabNavigator();
+const Drawer = createDrawerNavigator();
+
+//intialization
+const RootStack = createStackNavigator();
+const RootStackScreen = ({ userToken }) => (
+  <RootStack.Navigator headerMode="none" mode="card">
+    {userToken ? (
+      <RootStack.Screen name="App" component={DrawerScreen} />
+    ) : (
+      <RootStack.Screen
+        name="Auth"
+        component={AuthStackScreen}
         options={{
-          title: "overview",
-          headerLeft: () => {
-            return (
-              <Icon.Button
-                name="ios-menu"
-                size={25}
-                backgroundColor="#009387"
-                onPress={() => {
-                  navigation.openDrawer();
-                }}
-              />
-            );
-          },
+          animationEnabled: false,
         }}
       />
-    </ProfileStack.Navigator>
-  );
-};
-function NotificationsScreen({ navigation }) {
-  return (
-    <View style={{ flex: 1, alignItems: "center", justifyContent: "center" }}>
-      {/* <Button onPress={() => navigation.goBack()} title="Go back home" />
-       */}
-      <Text>hi</Text>
-    </View>
-  );
-}
+    )}
+  </RootStack.Navigator>
+);
+
+const DrawerScreen = () => (
+  <Drawer.Navigator drawerContent={(props) => <DrawerContent {...props} />}>
+    <Drawer.Screen name="Home" component={MyTabs} />
+  </Drawer.Navigator>
+);
 
 function MyTabs() {
   return (
@@ -90,7 +59,7 @@ function MyTabs() {
         name="Notifications"
         component={ProfileStackScreen}
         options={{
-          tabBarLabel: "Updates",
+          tabBarLabel: "Incentives",
           tabBarIcon: ({ color }) => (
             <MaterialCommunityIcons name="bell" color={color} size={26} />
           ),
@@ -99,4 +68,5 @@ function MyTabs() {
     </Tab.Navigator>
   );
 }
-export default MyTabs;
+
+export default RootStackScreen;

@@ -1,1 +1,1 @@
-export { default as Maintab } from "./maintabrouter";
+export { default as RootStackScreen } from "./maintabrouter";

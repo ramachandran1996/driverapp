@@ -1,5 +1,4 @@
 import React, { useEffect, useCallback } from "react";
-import { createDrawerNavigator } from "@react-navigation/drawer";
 import {
   NavigationContainer,
   DefaultTheme as NavigationDefaultTheme,
@@ -7,11 +6,11 @@ import {
 } from "@react-navigation/native";
 import { EventRegister } from "react-native-event-listeners";
 
-import { DrawerContent } from "./src/Router/drawercontent";
-import { Maintab } from "./src/Router/index";
+import { RootStackScreen } from "./src/Router/index";
+
 export default function App() {
   const [isDarkTheme, setIsDarkTheme] = React.useState(false);
-  const Drawer = createDrawerNavigator();
+  const [isusertoken, setIsusertoken] = React.useState(null);
   const CustomDefaultTheme = {
     ...NavigationDefaultTheme,
     colors: {
@@ -34,15 +33,17 @@ export default function App() {
       setIsDarkTheme(enabled);
       console.log("useefesst");
     });
+    EventRegister.addEventListener("login", (token) => {
+      setIsusertoken(token);
+      console.log("useefesst");
+    });
   }, []);
 
   const theme = isDarkTheme ? CustomDarkTheme : CustomDefaultTheme;
 
   return (
     <NavigationContainer theme={theme}>
-      <Drawer.Navigator drawerContent={(props) => <DrawerContent {...props} />}>
-        <Drawer.Screen name="Home" component={Maintab} />
-      </Drawer.Navigator>
+      <RootStackScreen userToken={isusertoken}/>
     </NavigationContainer>
   );
 }
