@@ -2,8 +2,8 @@ import { createStackNavigator } from "@react-navigation/stack";
 import Icon from "react-native-vector-icons/Ionicons";
 import React from "react";
 
-import { LanguageScreen } from "../../Screen/LanguageScreen";
-import { SignIn } from "../../Screen/signin";
+import { LanguageScreen } from "../../Screen/Language";
+import { SignIn } from "../../Screen/SignIn";
 
 const AuthStack = createStackNavigator();
 const AuthStackScreen = () => (

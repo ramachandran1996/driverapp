@@ -1,1 +1,0 @@
-export { default as DestinationScreen } from "./Components/destination";

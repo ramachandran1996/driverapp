@@ -2,11 +2,10 @@ import { createStackNavigator } from "@react-navigation/stack";
 import Icon from "react-native-vector-icons/Ionicons";
 import React from "react";
 
-
 import { HomeScreen } from "../../Screen/HomeScreen";
-import { LoadedScreen } from "../../Screen/LoadedDetailScreen";
-import { DestinationScreen } from "../../Screen/DestinationScreen";
-import { UnLoadedScreen } from "../../Screen/UnLoadedDetailScreen";
+import { LoadedScreen } from "../../Screen/LoadedDetails";
+import { DestinationScreen } from "../../Screen/Destination";
+import { UnLoadedScreen } from "../../Screen/UnLoadedDetails";
 
 const HomeStack = createStackNavigator();
 

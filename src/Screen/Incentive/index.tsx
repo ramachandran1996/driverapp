@@ -1,1 +1,1 @@
-export { default as IncentiveScreen } from "./Components/incentive";
+export { default as IncentiveScreen } from "./incentive";

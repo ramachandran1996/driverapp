@@ -1,1 +1,1 @@
-export { default as HomeScreen } from "./Components/homescreen";
+export { default as HomeScreen } from "./homescreen";
