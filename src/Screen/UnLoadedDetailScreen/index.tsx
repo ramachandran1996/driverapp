@@ -1,1 +1,1 @@
-export { default as UnLoadedScreen } from "./unloadeddetails";
+export { default as UnLoadedScreen } from "./Components/unloadeddetails";

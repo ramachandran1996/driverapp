@@ -4,7 +4,7 @@ import { View, Text, Switch, TouchableOpacity } from "react-native";
 import { DrawerContentScrollView, DrawerItem } from "@react-navigation/drawer";
 import { useTheme } from "@react-navigation/native";
 import { EventRegister } from "react-native-event-listeners";
-export function DrawerContent(props) {
+export function DrawerContent({ props }) {
   const [isEnabled, setIsEnabled] = useState(false);
   const { colors } = useTheme();
   const togglestorage = (value: boolean) => {

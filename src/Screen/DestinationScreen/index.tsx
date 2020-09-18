@@ -1,1 +1,1 @@
-export { default as DestinationScreen } from "./destination";
+export { default as DestinationScreen } from "./Components/destination";

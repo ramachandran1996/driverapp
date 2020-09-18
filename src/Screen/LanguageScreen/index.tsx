@@ -1,1 +1,1 @@
-export { default as LanguageScreen } from "./language";
+export { default as LanguageScreen } from "./Components/language";
