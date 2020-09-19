@@ -4,12 +4,17 @@ import {
   DefaultTheme as NavigationDefaultTheme,
   DarkTheme as NavigationDarkTheme,
 } from "@react-navigation/native";
+import { Text } from "react-native";
 import { EventRegister } from "react-native-event-listeners";
+import AsyncStorage from "@react-native-community/async-storage";
 
+import { SaveLocale, storeData } from "./src/Components/Config/i18n";
 import { RootStackScreen } from "./src/Router/index";
 
-export default function App() {
+export default function App(props) {
   const [isDarkTheme, setIsDarkTheme] = React.useState(false);
+  const [isloading, setIsloading] = React.useState(false);
+  const [islaunguage, setIslaunguage] = React.useState(false);
   const [isusertoken, setIsusertoken] = React.useState(null);
   const CustomDefaultTheme = {
     ...NavigationDefaultTheme,
@@ -37,13 +42,29 @@ export default function App() {
       setIsusertoken(token);
       console.log("useefesst");
     });
+    getLaunguage();
   }, []);
 
+  const getLaunguage = async () => {
+    try {
+      const value = await AsyncStorage.getItem("@launguage");
+      console.log("async", value);
+      if (value !== null) {
+        SaveLocale(value);
+        setIsloading(true);
+      }
+    } catch (e) {
+      SaveLocale("English");
+      setIsloading(true);
+    }
+  };
   const theme = isDarkTheme ? CustomDarkTheme : CustomDefaultTheme;
 
-  return (
+  return isloading ? (
     <NavigationContainer theme={theme}>
-      <RootStackScreen userToken={isusertoken}/>
+      <RootStackScreen userToken={isusertoken} {...props} />
     </NavigationContainer>
+  ) : (
+    <Text>loading</Text>
   );
 }

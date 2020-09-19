@@ -1,6 +1,7 @@
 import { createStackNavigator } from "@react-navigation/stack";
 import Icon from "react-native-vector-icons/Ionicons";
 import React from "react";
+import { useNavigation } from "@react-navigation/native";
 
 import { HomeScreen } from "../../Screen/HomeScreen";
 import { LoadedScreen } from "../../Screen/LoadedDetails";
@@ -9,7 +10,8 @@ import { UnLoadedScreen } from "../../Screen/UnLoadedDetails";
 
 const HomeStack = createStackNavigator();
 
-const HomeStackScreen = ({ navigation }) => {
+const HomeStackScreen = ({ ...props }) => {
+  const navigation = useNavigation();
   return (
     <HomeStack.Navigator
       screenOptions={{
@@ -20,7 +22,7 @@ const HomeStackScreen = ({ navigation }) => {
     >
       <HomeStack.Screen
         name="Home"
-        component={HomeScreen}
+        // component={HomeScreen}
         options={{
           title: "Homepage",
           headerLeft: () => {
@@ -36,7 +38,11 @@ const HomeStackScreen = ({ navigation }) => {
             );
           },
         }}
-      />
+      >
+        {(_) => {
+          return <HomeScreen {...props} />;
+        }}
+      </HomeStack.Screen>
       <HomeStack.Screen
         name="Loaded"
         component={LoadedScreen}

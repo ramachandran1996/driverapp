@@ -1,10 +1,12 @@
 import { createStackNavigator } from "@react-navigation/stack";
 import Icon from "react-native-vector-icons/Ionicons";
 import React from "react";
+import { useNavigation } from "@react-navigation/native";
 
 import { IncentiveScreen } from "../../Screen/Incentive";
 const ProfileStack = createStackNavigator();
-const ProfileStackScreen = ({ navigation }) => {
+const ProfileStackScreen = ({ ...props }) => {
+  const navigation = useNavigation();
   return (
     <ProfileStack.Navigator
       screenOptions={{
@@ -15,7 +17,7 @@ const ProfileStackScreen = ({ navigation }) => {
     >
       <ProfileStack.Screen
         name="profile"
-        component={IncentiveScreen}
+        // component={IncentiveScreen}
         options={{
           title: "overview",
           headerLeft: () => {
@@ -31,7 +33,11 @@ const ProfileStackScreen = ({ navigation }) => {
             );
           },
         }}
-      />
+      >
+        {(_) => {
+          return <IncentiveScreen {...props} />;
+        }}
+      </ProfileStack.Screen>
     </ProfileStack.Navigator>
   );
 };

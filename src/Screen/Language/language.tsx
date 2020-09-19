@@ -1,8 +1,19 @@
+import { locale } from "i18n-js";
 import React, { useEffect, useState, useCallback } from "react";
 // import { StatusBar } from "expo-status-bar";
 import { View, Text, Switch, Button, TouchableOpacity } from "react-native";
 
+import I18n, { SaveLocale } from "../../Components/Config/i18n";
+
 const LanguageScreen = ({ navigation }) => {
+  const [language, setLanguage] = useState("English");
+  const updatelaunguage = (value: string) => {
+    console.log("language",value);
+    SaveLocale(value);
+    //why we use render the page
+    setLanguage(!language);
+  };
+
   return (
     <View
       style={{
@@ -12,7 +23,7 @@ const LanguageScreen = ({ navigation }) => {
         alignItems: "center",
       }}
     >
-      <View
+      <TouchableOpacity
         style={{
           backgroundColor: "#EC7063",
           padding: 10,
@@ -21,11 +32,14 @@ const LanguageScreen = ({ navigation }) => {
           justifyContent: "center",
           alignItems: "center",
           margin: 5,
+        }}
+        onPress={() => {
+          updatelaunguage("English");
         }}
       >
         <Text>English</Text>
-      </View>
-      <View
+      </TouchableOpacity>
+      <TouchableOpacity
         style={{
           backgroundColor: "#EC7063",
           padding: 10,
@@ -35,10 +49,13 @@ const LanguageScreen = ({ navigation }) => {
           alignItems: "center",
           margin: 5,
         }}
+        onPress={() => {
+          updatelaunguage("தமிழ்");
+        }}
       >
         <Text>Tamil</Text>
-      </View>
-      <View
+      </TouchableOpacity>
+      <TouchableOpacity
         style={{
           backgroundColor: "#EC7063",
           padding: 10,
@@ -47,9 +64,12 @@ const LanguageScreen = ({ navigation }) => {
           justifyContent: "center",
           alignItems: "center",
         }}
+        onPress={() => {
+          updatelaunguage("हिन्दी");
+        }}
       >
         <Text>Hindi</Text>
-      </View>
+      </TouchableOpacity>
 
       <TouchableOpacity
         onPress={() => {
@@ -64,7 +84,7 @@ const LanguageScreen = ({ navigation }) => {
           borderRadius: 10,
         }}
       >
-        <Text style={{ color: "white" }}>Save</Text>
+        <Text style={{ color: "white" }}>{I18n.t("continue")}</Text>
       </TouchableOpacity>
     </View>
   );

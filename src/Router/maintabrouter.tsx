@@ -15,10 +15,12 @@ const Drawer = createDrawerNavigator();
 
 //intialization
 const RootStack = createStackNavigator();
-const RootStackScreen = ({ userToken }) => (
+const RootStackScreen = ({ userToken, ...props }) => (
   <RootStack.Navigator headerMode="none" mode="card">
     {userToken ? (
-      <RootStack.Screen name="App" component={DrawerScreen} />
+      <RootStack.Screen name="App">
+        {(_) => <DrawerScreen {...props} />}
+      </RootStack.Screen>
     ) : (
       <RootStack.Screen
         name="Auth"
@@ -31,13 +33,17 @@ const RootStackScreen = ({ userToken }) => (
   </RootStack.Navigator>
 );
 
-const DrawerScreen = () => (
-  <Drawer.Navigator drawerContent={(props) => <DrawerContent {...props} />}>
-    <Drawer.Screen name="Home" component={MyTabs} />
+const DrawerScreen = ({ ...props }) => (
+  <Drawer.Navigator drawerContent={(prop) => <DrawerContent {...prop} />}>
+    <Drawer.Screen name="Home">
+      {(_) => {
+        return <MyTabs {...props} />;
+      }}
+    </Drawer.Screen>
   </Drawer.Navigator>
 );
 
-function MyTabs() {
+function MyTabs({ ...props }) {
   return (
     <Tab.Navigator
       initialRouteName="Home"
@@ -47,24 +53,32 @@ function MyTabs() {
     >
       <Tab.Screen
         name="Home"
-        component={HomeStackScreen}
+        // component={HomeStackScreen}
         options={{
           tabBarLabel: "Home",
           tabBarIcon: ({ color }) => (
             <MaterialCommunityIcons name="home" color={color} size={26} />
           ),
         }}
-      />
+      >
+        {(_) => {
+          return <HomeStackScreen {...props} />;
+        }}
+      </Tab.Screen>
       <Tab.Screen
         name="Notifications"
-        component={ProfileStackScreen}
+        // component={ProfileStackScreen}
         options={{
           tabBarLabel: "Incentives",
           tabBarIcon: ({ color }) => (
             <MaterialCommunityIcons name="bell" color={color} size={26} />
           ),
         }}
-      />
+      >
+        {(_) => {
+          return <ProfileStackScreen {...props} />;
+        }}
+      </Tab.Screen>
     </Tab.Navigator>
   );
 }

@@ -1,6 +1,6 @@
 import React, { useEffect, useState, useCallback } from "react";
 // import { StatusBar } from "expo-status-bar";
-import { NavigationContainer } from "@react-navigation/native";
+import { useNavigation } from "@react-navigation/native";
 import {
   View,
   Text,
@@ -10,11 +10,13 @@ import {
   TouchableOpacity,
 } from "react-native";
 
-const HomeScreen = ({ navigation }) => {
+import I18n from "../../Components/Config/i18n";
+const HomeScreen = ({ ...props }) => {
+  const navigation = useNavigation();
   return (
     <View style={{ flex: 1, justifyContent: "center" }}>
       <Text style={{ textAlign: "center", paddingVertical: 10 }}>
-        Home screen
+        {I18n.t("homeScreen")}
       </Text>
 
       <TouchableOpacity
@@ -31,6 +33,7 @@ const HomeScreen = ({ navigation }) => {
       >
         <Text>Go to loadedScreen Screen</Text>
       </TouchableOpacity>
+      <Text>{I18n.t("continue")}</Text>
     </View>
   );
 };

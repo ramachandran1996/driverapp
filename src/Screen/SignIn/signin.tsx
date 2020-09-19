@@ -4,6 +4,8 @@ import { View, Text, Switch, Button } from "react-native";
 import { TouchableOpacity } from "react-native-gesture-handler";
 import { EventRegister } from "react-native-event-listeners";
 
+import I18n from "../../Components/Config/i18n";
+
 export default function Signinscreens({ props }) {
   return (
     <View style={{ flex: 1, justifyContent: "center", alignItems: "center" }}>
@@ -22,7 +24,7 @@ export default function Signinscreens({ props }) {
           margin: 10,
         }}
       >
-        <Text>signin</Text>
+        <Text>{I18n.t("continue")}</Text>
       </TouchableOpacity>
     </View>
   );
