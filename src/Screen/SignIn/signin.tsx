@@ -1,31 +1,22 @@
-import React, { useEffect, useState, useCallback } from "react";
-// import { StatusBar } from "expo-status-bar";
-import { View, Text, Switch, Button } from "react-native";
-import { TouchableOpacity } from "react-native-gesture-handler";
-import { EventRegister } from "react-native-event-listeners";
+import React from "react";
+import { View } from "react-native";
 
-import I18n from "../../Components/Config/i18n";
+import {
+  Container,
+  Wrapper,
+} from "../../Components/StylesComponents/container";
 
-export default function Signinscreens({ props }) {
+import SelectTruck from "./Components/selecttruck";
+import LoginButton from "./Components/loginbutton";
+import AcessCode from "./Components/accesscode";
+export default function Signinscreens({}) {
   return (
-    <View style={{ flex: 1, justifyContent: "center", alignItems: "center" }}>
-      <Text>sign in screen</Text>
-      <TouchableOpacity
-        onPress={() => {
-          EventRegister.emit("login", true);
-        }}
-        style={{
-          backgroundColor: "red",
-          padding: 10,
-          borderRadius: 10,
-          width: 200,
-          justifyContent: "center",
-          alignItems: "center",
-          margin: 10,
-        }}
-      >
-        <Text>{I18n.t("continue")}</Text>
-      </TouchableOpacity>
-    </View>
+    <Container addstyle={{ flex: 1, justifyContent: "space-between" }}>
+      <Wrapper>
+        <SelectTruck />
+        <AcessCode />
+      </Wrapper>
+      <LoginButton />
+    </Container>
   );
 }
