@@ -1,10 +1,29 @@
 import React, { useEffect, useState, useCallback } from "react";
 // import { StatusBar } from "expo-status-bar";
-import { View, Text, Switch, TextInput } from "react-native";
+import { View, Text, Switch } from "react-native";
+import { useFormik } from "formik";
+import * as Yup from "yup";
 
-import I18n from "../../../Components/Config/i18n";
+import { TextInput } from "../../../Components/StylesComponents/container";
 
-export default function AccessCode({}) {
+const LoginSchema = Yup.object().shape({
+  accessCode: Yup.string()
+    .min("6", "Require 6 digit passcode")
+    // .max("10", "Require 6 digit passcode")
+    .required("Required"),
+});
+const AccessCode = ({}) => {
+  const [accessCode, setAccessCode] = useState(0);
+  const { handleChange, handleBlur, handleSubmit, errors, touched } = useFormik(
+    {
+      validationSchema: LoginSchema,
+      initialValues: { accessCode: null },
+      onSubmit: () => {
+        touched.accessCode = false;
+        // dispatch(login(selectedTruck, accessCode));
+      },
+    }
+  );
   return (
     <View
       style={{
@@ -13,10 +32,20 @@ export default function AccessCode({}) {
         height: 100,
         padding: 10,
         backgroundColor: "white",
+        marginTop: 20,
+        paddingHorizontal: 20,
       }}
     >
       {/* <Text style={{ fontSize: 22 }}>Enter your access code</Text> */}
-      <TextInput placeholder={"Enter your access code"} />
+      <TextInput
+        onBlur={handleBlur("accessCode")}
+        touched={touched.accessCode}
+        error={errors.accessCode}
+        onChangeText={handleChange("accessCode")}
+        placeholder="Enter Your Access Code"
+        keyboardType="number-pad"
+      />
     </View>
   );
-}
+};
+export default React.memo(AccessCode);

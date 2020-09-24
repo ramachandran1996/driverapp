@@ -6,13 +6,13 @@ import {
 import { Text } from "react-native";
 import { EventRegister } from "react-native-event-listeners";
 import AsyncStorage from "@react-native-community/async-storage";
+import { ReactQueryDevtools } from "react-query-devtools";
 
 import CustomDefaultTheme from "./src/Components/Themes/CustomDefaultThem";
 import CustomDarkTheme from "./src/Components/Themes/CustomDarkTheme";
 import StatusBar from "./src/Components/statusbar";
 import { SaveLocale, storeData } from "./src/Components/Config/i18n";
 import { RootStackScreen } from "./src/Router/index";
-
 export default function App(props) {
   const [isDarkTheme, setIsDarkTheme] = React.useState(false);
   const [isloading, setIsloading] = React.useState(false);
@@ -48,13 +48,18 @@ export default function App(props) {
   };
   const theme = isDarkTheme ? CustomDarkTheme : CustomDefaultTheme;
 
-  return isloading ? (
-    <NavigationContainer theme={theme}>
-      <StatusBar isDarkTheme={isDarkTheme}>
-        <RootStackScreen userToken={isusertoken} {...props} />
-      </StatusBar>
-    </NavigationContainer>
-  ) : (
-    <Text>loading</Text>
+  if (!isloading) {
+    return <Text>loading</Text>;
+  }
+
+  return (
+    <>
+      <NavigationContainer theme={theme}>
+        <StatusBar isDarkTheme={isDarkTheme}>
+          <RootStackScreen userToken={isusertoken} {...props} />
+        </StatusBar>
+      </NavigationContainer>
+      {/* <ReactQueryDevtools initialIsOpen /> */}
+    </>
   );
 }
